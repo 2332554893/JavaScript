@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03-应用自定义拖曳事件</title>
+    <style>
+        #div1,
+        #div2,
+        #div3 {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+        }
+        
+        #div1 {
+            background-color: red;
+        }
+        
+        #div2 {
+            background-color: yellow;
+            left: 200px;
+        }
+        
+        #div3 {
+            background-color: blue;
+            left: 400px;
+        }
+        
+        #new {
+            width: 100px;
+            height: 100px;
+            position: absolute;
+            background-color: brown;
+        }
+    </style>
+    <script src="./01-drag.js"></script>
+    <script>
+        window.onload = function() {
+            //对 div1 应用拖曳组件
+            var d1 = new Drag();
+            d1.init({
+                id: "div1",
+            });
+
+            //对div1绑定事件 'toUp'
+            bindEvent(d1, 'toUp', function() {
+                console.log('div1处理toUp事件');
+            });
+
+            //对 div2 应用拖曳组件
+            var d2 = new Drag();
+            d2.init({
+                id: "div2",
+            });
+
+            //对div2绑定事件 'toUp'
+            bindEvent(d2, 'toUp', function() {
+                console.log('div2处理toUp事件');
+            });
+
+            //对div2绑定事件 'toDown'
+            bindEvent(d2, 'toDown', function() {
+                document.getElementById('div2').style.background = 'black';
+            });
+
+            //对 div3 应用拖曳组件
+            var d3 = new Drag();
+            d3.init({
+                id: "div3",
+            });
+
+            //对div3绑定事件 'toUp'
+            bindEvent(d3, 'toUp', function() {
+                console.log('div3处理toUp事件');
+
+            });
+
+            //对div2绑定事件 'toDown'
+            bindEvent(d3, 'toDown', function() {
+                console.log('div3处理toDown事件');
+                document.getElementById('div3').id = 'new';
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div id="div1"></div>
+    <div id="div2"></div>
+    <div id="div3"></div>
+</body>
+
+</html>

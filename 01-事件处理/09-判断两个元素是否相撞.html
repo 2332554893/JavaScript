@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>09-判断两个元素是否相撞</title>
+    <style>
+        #div1 {
+            width: 250px;
+            height: 100px;
+            background-color: bisque;
+            line-height: 100px;
+            position: absolute;
+            z-index: 2;
+            text-align: center;
+            left: 250px;
+            top: 100px;
+        }
+        
+        #div2 {
+            width: 100px;
+            height: 50px;
+            position: absolute;
+            left: 50%;
+            top: 90%;
+            line-height: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+        <img width="100%" height="100%" src="./images/墙.png" alt="">
+    </div>
+    <div id="div2"><img width="100%" height="100%" src="./images/坦克.png" alt=""></div>
+
+    <script>
+        window.onload = function() {
+            var div1 = document.getElementById('div1');
+            var div2 = document.getElementById('div2');
+
+            div2.onmousedown = function() { //鼠标按下时
+                var ev = ev || event;
+                var disx = ev.clientX - this.offsetLeft;
+                var disy = ev.clientY - this.offsetTop;
+
+                document.onmousemove = function(ev) { //监听 鼠标移动
+                    var ev = ev || event;
+                    var l = ev.clientX - disx;
+                    var t = ev.clientY - disy;
+
+                    //div1的四条边与可视化窗口的距离
+                    var l1 = div1.offsetLeft;
+                    var t1 = div1.offsetTop;
+                    var r1 = l1 + div1.offsetWidth;
+                    var b1 = t1 + div1.offsetHeight;
+
+                    //div2的四条边与可视化窗口的距离
+                    var l2 = l; //左
+                    var t2 = t; //顶
+                    var r2 = l + div2.offsetWidth; //右
+                    var b2 = t + div2.offsetHeight; //底
+
+                    // 1.判断 div2 与周边碰撞
+                    if (r2 < l1 || l2 > r1 || b2 < t1 || t2 > b1) {
+                        div2.style.background = "rgb(196, 255, 219) ";
+                    } else {
+
+                        //下面的if方法是设置 当 div2 进入了 div1 的边界时的方法处理
+                        if (r2 > l1) {
+                            r2 = l1;
+                        } else if (l2 < r1) {
+                            l2 = r1;
+                        } else if (b2 > t1) {
+                            b2 = t1;
+                        } else if (t2 < b1) {
+                            t2 = b1;
+                        }
+
+                        div2.style.background = "red ";
+
+                        alert("碰撞 ");
+                        false1(); //当碰撞后，取消拖拽，并回到原位
+                        return; //返回出值
+                    }
+
+                    div2.style.left = l2 + "px ";
+                    div2.style.top = t2 + 'px';
+                };
+
+                document.onmouseup = function() { //鼠标松开时
+                    false1();
+                };
+                return false; //默认行为取消方法
+
+            };
+
+
+            //复原方法
+            function false1() {
+                document.onmousemove = null; //关闭 鼠标移动方法
+                div2.style.left = 50 + "% ";
+                div2.style.top = 90 + '%';
+            }
+        }
+    </script>
+
+</html>

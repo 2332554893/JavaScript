@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03-根据表单数据动态生成表格</title>
+    <style>
+        #tbl {
+            border-collapse: collapse;
+            margin-top: 10px;
+            width: 500px;
+        }
+        
+        table,
+        th,
+        td {
+            border: 1px solid#000;
+        }
+        
+        th,
+        td {
+            text-align: center;
+        }
+        
+        body {
+            width: 700px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <form name="form1">
+        姓名：<input type="text" name="username" id="username">
+        <br> 性别：
+        <input type="radio" name="gender" id="">男
+        <input type="radio" name="gender" id="">女
+        <br> 年龄：<input type="text" name="age" id="age">
+        <br><input type="button" id="btn" value="添加">
+    </form><br>
+    <table id="tbl">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th> 操作</th>
+
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</body>
+<script>
+    window.onload = function() {
+        //定义变量
+        var gender;
+        var fr = document.form1;
+        var username = fr.username;
+        var age = fr.age;
+        var btn = document.getElementById("btn");
+        var bl = document.getElementById("tbl");
+        var tBody = bl.tBodies[0];
+
+        //单击按钮后为表格添加一行数据
+        btn.onclick = function() {
+            //创建tr和td元素
+            var tr = document.createElement("tr");
+            var tid = document.createElement("td");
+            var username1 = document.createElement("td");
+            var gender1 = document.createElement("td");
+            var age1 = document.createElement("td");
+
+            tid.setAttribute("class", "id"); //添加 class 属性
+
+            //校验数据有效性
+            if (!username.value || !age.value) {
+                alert("请输入完整内容！");
+                return;
+            }
+            if (isNaN(age.value) || age.value < 0) { //isNaN(age.value) 必须为数值
+                alert("请输入正确年龄！");
+                return;
+            }
+            if (fr.gender[0].checked == true) {
+                gender = "男";
+                fr.gender[0].checked = false; //这里是一个 = ；== 是比较的意思
+
+            } else if (fr.gender[1].checked == true) {
+                gender = "女";
+                fr.gender[1].checked = false;
+            };
+            if (gender == null) {
+                alert("请选择性别！");
+                return;
+            }
+
+            //为各个单元格添加表单提交的数据
+            username1.innerHTML = username.value;
+            gender1.innerHTML = gender;
+            age1.innerHTML = age.value;
+
+            //添加删除 a 标签
+            var del = document.createElement('td');
+            del.innerHTML = ' <a href="javascript:;">删除</a>';
+
+            //执行删除表格操作
+            var a = del.children[0];
+            a.onclick = function() {
+                if (confirm("确定删除？")) {
+                    tBody.removeChild(this.parentNode.parentNode);
+                    setId(); //重新排序
+                }
+            };
+
+            //为表格添加单元格 行
+            tr.appendChild(tid);
+            tr.appendChild(username1);
+            tr.appendChild(gender1);
+            tr.appendChild(age1);
+            tr.appendChild(del);
+            tBody.appendChild(tr);
+
+            //设置行序号
+            setId();
+            username.value = age.value = "";
+
+            //定义行序号方法
+            function setId() {
+                var id = tBody.querySelectorAll(".id");
+                for (var i = 0; i < id.length; i++) {
+                    id[i].innerHTML = i + 1;
+                }
+            }
+
+        }
+
+    }
+</script>
+
+</html>

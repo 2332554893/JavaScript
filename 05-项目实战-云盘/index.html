@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>05-项目实战-云盘</title>
+    <!-- 引入网页图标 -->
+    <link rel="shortcut icon" href="./image/logo.ico">
+    <!-- 引入清除默认样式 -->
+    <link rel="stylesheet" href="./取消默认设置.css">
+    <!-- 引入图标样式 -->
+    <link rel="stylesheet" href="./font_92mi6bhif3f/iconfont.css">
+    <!-- 引入主体样式 -->
+    <link rel="stylesheet" href="./index.css">
+    <script src="./index.js"></script>
+</head>
+
+<body>
+
+    <!-- 页面外框-->
+    <main id="page">
+
+        <!-- 页面头部 -->
+        <header id="header">
+            <h1 id="logo">
+                <img src="./image/logo.png" alt="">个人云盘
+            </h1>
+            <nav class="top-nav">
+                <a class="create-btn iconfont icon-xinjian" href="">新建文件夹</a>
+                <a class="del-btn iconfont icon-lajitong" href="">删除</a>
+                <a class="move-btn iconfont icon-yidong" href="">移动到</a>
+            </nav>
+        </header>
+
+        <!-- 内容区域 -->
+        <div id="content">
+
+            <!-- 侧边栏导航 -->
+            <aside id="tree-menu" class="tree-menu">
+                <ul>
+                    <li class="open">
+                        <p class="has-child  ">
+                            <span>一级菜单</span>
+                        </p>
+                        <ul>
+                            <li class="open">
+                                <p class="has-child active" style="padding-left:68px">
+                                    <span>二级菜单</span>
+                                </p>
+                                <ul>
+                                    <li class="open">
+                                        <p style="padding-left:96px">
+                                            <span>三级菜单</span>
+                                        </p>
+                                    </li>
+                                    <li class="open ">
+                                        <p style="padding-left:96px">
+                                            <span>三级菜单</span>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <p style="padding-left:68px">二级菜单</p>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- 右侧内容 -->
+            <article id="folder-content">
+
+                <!-- 路径导航 -->
+                <div id="breadmenu">
+                    <label class="checked-all checked">
+                        <input type="checkbox" id="checked-all checkbox">
+                    </label>
+                    <nav class="bread-nav">
+                        <a href="">微云</a>
+                        <a href="">课程</a>
+                        <span>DOM操作</span>
+                    </nav>
+                </div>
+
+                <!-- 文件夹区域 -->
+                <ul id="folders">
+                    <li class="folder-item active">
+                        <img src="./image/image2.png" alt="">
+                        <span class="folder-name">js程序设计</span>
+                        <input type="text" class="editor" value="js程序设计">
+                        <label class="checked" for="">
+                            <input type="checkbox" name="" id="checkbox">
+                        </label>
+                    </li>
+                    <li class="folder-item active">
+                        <img src="./image/image2.png" alt="">
+                        <span class="folder-name">js程序设计</span>
+                        <input type="text" class="editor" value="js程序设计">
+                        <label class="checked" for="">
+                            <input type="checkbox" name="" id="checkbox">
+                        </label>
+                    </li>
+                    <li class="folder-item active">
+                        <img src="./image/image2.png" alt="">
+                        <span class="folder-name">js程序设计</span>
+                        <input type="text" class="editor" value="js程序设计">
+                        <label class="checked" for="">
+                            <input type="checkbox" name="" id="checkbox">
+                        </label>
+                    </li>
+                    <!-- 右键菜单 -->
+                    <ul id="contextmenu">
+                        <li class="iconfont icon-lajitong">删除</li>
+                        <li class="iconfont icon-yidong">移动到</li>
+                        <li class="iconfont icon-tianxie">重命名</li>
+                    </ul>
+                </ul>
+
+            </article>
+        </div>
+    </main>
+
+    <!-- 弹窗 -->
+    <div class="alert alert-success">删除文件成功</div>
+    <div class="alert alert-warning">请选择文件</div>
+
+
+    <!-- 删除确认框 -->
+    <div class=" confirm ">
+        <a class="clos iconfont icon-guanbi" href=""></a>
+        <p class="confirm-text iconfont icon-jinggao">确定要删除这文件夹吗？ </p>
+        <nav class="confirm-btns">
+            <a href="">确定</a>
+            <a href="">取消</a>
+        </nav>
+    </div>
+
+    <!-- 移动到具体位置  弹窗 -->
+    <div class="move-alert">
+        <h2 class="move-alert-title">要存储的位置</h2>
+        <a class="clos iconfont icon-guanbi" href=""></a>
+        <div class="move-alert-menu tree-menu">
+            <ul>
+                <li class="open">
+                    <p class="has-child  ">
+                        <span>一级菜单</span>
+                    </p>
+                    <ul>
+                        <li class="open">
+                            <p class="has-child active" style="padding-left:68px">
+                                <span>二级菜单</span>
+                            </p>
+                            <ul>
+                                <li class="open">
+                                    <p style="padding-left:96px">
+                                        <span>三级菜单</span>
+                                    </p>
+                                </li>
+                                <li class="open ">
+                                    <p style="padding-left:96px">
+                                        <span>三级菜单</span>
+                                    </p>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <p style="padding-left:68px">二级菜单</p>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <nav class="confirm-btns">
+            <a href="">确定</a>
+            <a href="">取消</a>
+        </nav>
+    </div>
+
+
+
+</body>
+
+</html>

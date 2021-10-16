@@ -1,0 +1,128 @@
+            body {
+                margin: 0;
+                padding: 0;
+                background-color: rgba(233, 221, 59, 0.384);
+            }
+            
+            h4 {
+                margin: 0;
+                padding: 0;
+            }
+            
+            a {
+                /* 取消原有样式  */
+                text-decoration: none;
+                color: #444;
+            }
+            /* 提交按钮 */
+            
+            .btn1 {
+                padding: 0 12px;
+                margin-left: 0px;
+                display: inline-block;
+                height: 28px;
+                line-height: 28px;
+                font-size: 14px;
+                border: 1px solid #d9d9d9;
+                background-color: #fafafa;
+            }
+            /* 头部区域 */
+            
+            #header {
+                position: relative;
+                height: 42px;
+                background-color: #fff;
+                border-bottom: 1px solid #ccc;
+                font-size: 30px;
+                font-family: "Times New Roman";
+                text-align: center;
+            }
+            /* 主体部分 */
+            
+            #container {
+                margin: 10px auto;
+                position: relative;
+                width: 1000px;
+            }
+            /* 侧边栏 */
+            
+            #sidebar {
+                padding: 10px;
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 300px;
+                border: 1px solid #ccc;
+                background-color: white;
+            }
+            
+            #sidebar h4 {
+                padding: 5px;
+                height: 24px;
+                line-height: 24px;
+                background-color: #ccc;
+            }
+            /* 注册区域默认隐藏 */
+            
+            #reg {
+                display: none;
+            }
+            /* 留言发表区样式 */
+            
+            #sendBox {
+                width: 300px;
+            }
+            
+            #sendBox div {
+                margin: 5px 0;
+            }
+            
+            #sendBox textarea {
+                margin-bottom: 5px;
+                width: 294px;
+                height: 140px;
+                resize: none;
+                /* 取消文本框可缩放 */
+            }
+            /* 留言内容显示区域样式 */
+            
+            #list {
+                width: 600px;
+            }
+            
+            #list dl {
+                margin: 0 0 10px 0;
+                padding: 10px;
+                border: 1px solid #ccc;
+                background-color: white;
+            }
+            
+            #list dt {
+                height: 300px;
+                line-height: 300px;
+            }
+            
+            #list dd.t {
+                text-align: right;
+            }
+            
+            #list dd.t #time {
+                float: left;
+                margin: 5px;
+            }
+            
+            #list dd.t a {
+                margin: 10px 5px;
+            }
+            
+            #showMore {
+                width: 640px;
+                margin: 0 0 10px 0;
+                padding: 10px;
+                border: 1px solid #ccc;
+                background-color: white;
+                text-align: center;
+                cursor: pointer;
+                /* 光标：指针
+                */
+            }

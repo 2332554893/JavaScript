@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>11-鼠标滚轮事件-对图片的缩放</title>
+    <style>
+        body {
+            height: 2000px;
+        }
+        
+        #img1 {
+            width: 200px;
+            height: 200px;
+            margin: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="./images/壁纸..webp" id="img1" alt="">
+</body>
+
+<script>
+    window.onload = function() {
+        var img = document.getElementById("img1");
+
+        //兼容性处理 (对ie和chrome生效)
+        img.onmousewheel = fn; //鼠标滚轮滚动事件
+
+        //方法搭建
+        function fn(ev) {
+            var ev = ev || event;
+            var b = true;
+            if (ev.wheelDelta) {
+                b = ev.wheelDelta > 0 ? true : false;
+            } else {
+                b = ev.detail < 0 ? true : false;
+            }
+            if (b) { // b 为 true 时，宽度，高度减少
+                this.style.width = this.offsetWidth - 20 + 'px';
+                this.style.height = this.offsetHeight - 20 + 'px';
+            } else { // b 为 false 时，宽度，高度增加
+                this.style.width = this.offsetWidth + 20 + 'px';
+                this.style.height = this.offsetHeight + 20 + 'px';
+            }
+
+            //取消由 addEventListener()  绑定的鼠标滚动条默认滚动事件
+            if (ev.preventDefault) {
+                ev.preventDefault();
+            }
+
+            //取消obj.onmousewheel=fn 形式绑定的鼠标滚动条默认滚动事件
+            return false;
+        }
+
+
+    }
+</script>
+
+</html>

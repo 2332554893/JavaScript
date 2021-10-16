@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>12-模拟滚动条控制内容滚动</title>
+    <style>
+        /* 大盒子 */
+        
+        #box {
+            border: 2px solid;
+            width: 500px;
+            height: 600px;
+            /* 相对定位 */
+            /* 子绝父相 */
+            position: absolute;
+            left: 20%;
+            font-size: 20px;
+        }
+        /* 滚动框 */
+        
+        #div1 {
+            width: 25px;
+            height: 600px;
+            background-color: rgba(238, 233, 233, 0.63);
+            /* 绝对定位 */
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        /* 滚动条 */
+        
+        #div2 {
+            width: 25px;
+            height: 50px;
+            background-color: rgb(107, 102, 102);
+            /* 绝对定位 */
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        /* 内容盒子 */
+        
+        #div3 {
+            width: 440px;
+            height: 580px;
+            /* 绝对定位 */
+            position: absolute;
+            left: 20px;
+            top: 10px;
+            /* 溢出：隐藏； */
+            overflow: hidden;
+        }
+        /* 内容部分 */
+        
+        #div4 {
+            /* 绝对定位 */
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+        <div id="div1">
+            <div id="div2"></div>
+        </div>
+        <div id="div3">
+            <div id="div4">
+                7月28日，国家能源局发布的数据显示，上半年我国能源消费实现快速增长，全社会用电量同比增长16.2%，工业用电贡献率明显超过往年水平；进入二季度，工业拉动用电增长势头明显，反映出经济运行基本面稳中加固稳中向好。
+                <br>　　全社会用电量快速增长,具体来看，上半年能源形势主要呈现能源消费快速增长、能源供需总体处于紧平衡状态、清洁低碳转型步伐加快三个方面的特点。<br> 　 　在能源消费方面，全社会用电量快速增长。上半年全社会用电量同比增长16.2%，较2019年同期增长15.8%，两年同期平均增长7.6%。国家能源局发展规划司司长李福龙分析认为，“工业是拉动用电增长的主要动力，上半年工业用电同比增长16.5%，对全社会用电量增长的贡献率近70%”。
+                <br> 　　同时，煤炭消费较快增长，发电、建材用煤增长显著。上半年煤炭消费同比增长10.7%，较2019年同期增长8.1%。其中，发电、建材用煤持续较快增长，分别同比增长15.7%、12%，电煤对煤炭消费增长贡献率达到76.7%。
+                <br>　在能源供给方面，今年以来，全国最高用电负荷连续6个月均创历史同期新高，部分地区采取有序用电措施；煤炭供应偏紧，价格高位震荡。李福龙表示，面对快速增长的能源需求，国家能源局组织相关企业全力保障能源安全稳定供应，主要能源品种产量持续增长，供应能力进一步增强。上半年，全国发电装机规模同比增长9.5%，其中，风电、太阳能发电装机规模分别同比增长34.7%、23.7%。<br> 　　 在清洁低碳转型方面，国家能源局持续推动可再生能源消纳，印发《2021年可再生能源电力消纳责任权重及有关事项的通知》《清洁能源消纳情况综合监管工作方案》，上半年，水电、核电、风电、太阳能发电累计发电量同比增长10.2%。同时，持续推进清洁能源重大项目建设，白鹤滩水电站首批机组投产发电，实现我国高端装备制造的重大突破；乌东德水电站全部机组投产发电。
+                <br> 　　截至6月底，水电、核电、风电、太阳能发电装机容量合计约9.9亿千瓦，占电力总装机容量的比重提高到43.9%，较去年同期提高了2.9个百分点。
+            </div>
+        </div>
+
+    </div>
+</body>
+<script>
+    window.onload = function() {
+        var div1 = document.getElementById("div1");
+        var div2 = document.getElementById("div2");
+        var div3 = document.getElementById("div3");
+        var div4 = document.getElementById("div4");
+        var iMaxTop = div1.offsetHeight - div2.offsetHeight; //获取滚动条最大滚动范围
+
+        div2.onmousedown = function(ev) {
+            var ev = ev || event;
+            //鼠标在滚动条上按下时，鼠标光标距离滚动条顶部的距离
+            var disY = ev.clientY - this.offsetTop;
+
+            document.onmouseover = function(ev) {
+                var ev = ev || event;
+                //鼠标滚动按下时，鼠标距离滚动条顶部的距离
+                var t = ev.clientY - disY;
+                if (t < 0) {
+                    t = 0;
+                } else if (t > iMaxTop) {
+                    t = iMaxTop;
+                }
+                div2.style.top = t + "px"; //设置滚动条的滚动范围0-iMaxTop；
+                var iScale = t / iMaxTop; //计算每次移动后top值和最大top值的比率
+
+                div4.style.top = (div3.offsetHeight - div4.offsetHeight) * iScale + 'px'; //设置内容部分滚动
+
+            }
+
+            document.onmouseup = function() {
+                document.onmouseover = null;
+            }
+            return false;
+        }
+
+    }
+</script>
+
+</html>

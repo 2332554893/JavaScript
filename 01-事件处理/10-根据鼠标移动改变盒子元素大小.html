@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10-根据鼠标移动改变盒子元素大小</title>
+    <style>
+        #div1 {
+            width: 400px;
+            height: 200px;
+            background-color: bisque;
+            /* border: 20px solid rgba(0, 195, 255, 0.603); */
+            position: relative;
+            left: 250px;
+            top: 100px;
+        }
+        
+        .d1 {
+            position: absolute;
+            left: 50%;
+            top: 0%;
+        }
+        
+        .d2 {
+            position: absolute;
+            left: 50%;
+            bottom: 0%;
+        }
+        
+        .d3 {
+            position: absolute;
+            left: 0%;
+            top: 50%;
+        }
+        
+        .d4 {
+            position: absolute;
+            right: 0%;
+            top: 50%;
+        }
+        
+        .d5 {
+            position: absolute;
+            left: 40%;
+            top: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+        <div class="d1">上</div>
+        <div class="d2">下</div>
+        <div class="d3">左</div>
+        <div class="d4">右</div>
+        <div class="d5">可以向四面拉伸</div>
+    </div>
+</body>
+<script>
+    //通过获取鼠标移动的位置 来改变盒子原本与可视区的距离
+    window.onload = function() {
+        var div = document.getElementById("div1");
+        var b = "";
+
+        div.onmousedown = function(ev) { //鼠标按下时
+
+            var ev = ev || event;
+            var disW = this.offsetWidth; //获取原本宽度
+            var disX = ev.clientX; //获取鼠标按下的水平位置
+            var disL = this.offsetLeft; //获取原本的left值
+
+            var disH = this.offsetHeight; //获取原本高度
+            var disY = ev.clientY; //获取鼠标按下的垂直位置
+            var disT = this.offsetTop; //获取原本的Top值
+
+
+            if (disX > this.offsetLeft + disW - 20) { //如果鼠标按下的位置  在 盒子 右边框 20像素 之内
+                b = 'right'; //表示 鼠标 在元素的右端按下
+            } else
+            if (disX < this.offsetLeft + 20) { //如果鼠标按下的位置  在 盒子 左边框 20像素 之内
+                b = 'left'; //表示 鼠标 在元素的左端按下
+            } else if (disY > this.offsetTop + disH - 20) { //如果鼠标按下的位置  在 盒子 下边框 20像素 之内
+                b = 'bottom'; //表示 鼠标 在元素的底端按下
+            } else
+            if (disY < this.offsetTop + 20) { //如果鼠标按下的位置  在 盒子 上边框 20像素 之内
+                b = 'top'; //表示 鼠标 在元素的顶端按下
+            }
+
+            document.onmousemove = function(ev) { //监听 鼠标移动
+                var ev = ev || event;
+
+                switch (b) {
+                    case 'left': //鼠标在左端按下，改变宽度和left值
+                        div.style.width = disW - (ev.clientX - disX) + 'px'; //改变盒子的宽度
+                        div.style.left = disL + (ev.clientX - disX) + 'px'; //改变盒子的left值
+                        break;
+                    case 'right': //鼠标在右端按下，改变宽度，left值不变
+                        div.style.width = disW + (ev.clientX - disX) + 'px';
+                        break;
+                    case 'top': //鼠标在顶端按下，改变top，高度
+                        div.style.height = disH - (ev.clientY - disY) + 'px';
+                        div.style.top = disT + (ev.clientY - disY) + 'px';
+                        console.log(disT - (ev.clientY - disY));
+                        break;
+                    case 'bottom': //鼠标在右端按下，改变宽度，left值不变
+                        div.style.height = disH + (ev.clientY - disY) + 'px';
+                        console.log("55");
+                        break;
+
+                }
+            };
+
+            document.onmouseup = function() { //鼠标松开时
+                document.onmousemove = null; //关闭 鼠标移动方法
+            };
+            return false; //默认行为取消方法
+
+        };
+    }
+</script>
+
+</html>

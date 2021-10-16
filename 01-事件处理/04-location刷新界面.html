@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04-location刷新界面</title>
+</head>
+
+<body>
+    <input type="button" value="加载百度界面" onclick="loadNewDoc()">
+    <input type="button" value="重新加载文档" onclick="reloadDoc()">
+    <input type="button" value="查看当前页面URL" onclick="getDocUrl()">
+    <input type="button" value="查看当前浏览器名称" onclick="getAppName()">
+    <input type="button" value="跳出信息提示对话框" onclick="prompt1()">
+
+</body>
+<script>
+    //加载百度界面
+    function loadNewDoc() {
+        //window.location.assign("http://www.baidu.com"); //在当前页面加载页面
+        open("http://www.baidu.com", "", "height=300,width=500,location=0,top=100,left=200,menubar=0"); //新页面加载，menubar=0 - -> 不显菜单栏
+    }
+
+    //重新加载页面
+    function reloadDoc() {
+        window.location.reload();
+    }
+
+    //查看当前页面URL
+    function getDocUrl() {
+        alert("当前页面URL是：" + window.location.href);
+    }
+
+    //查看当前浏览器名称
+    function getAppName() {
+        alert("当前浏览器名称：" + navigator.userAgent + "\n\n当前是否启用cookie：" + navigator.cookieEnabled);
+    }
+
+    //跳出信息提示对话框
+    function prompt1() {
+        var name = prompt("请输入你的名字：");
+        alert('你的姓名是：' + name);
+    }
+</script>
+
+</html>

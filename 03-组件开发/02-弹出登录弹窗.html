@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02-弹出登录弹窗</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        #login,
+        #ad {
+            background-color: white;
+            border: 1px solid;
+            position: absolute;
+            z-index: 2;
+            /* 设置优先级为2 显示在所有的上面 */
+        }
+        
+        #ad {
+            z-index: 1;
+        }
+        
+        .title {
+            height: 30px;
+            line-height: 30px;
+            background: gray;
+            color: white;
+            padding-left: 6px;
+        }
+        
+        .title .close {
+            float: right;
+            padding-right: 6px;
+        }
+        
+        #form {
+            text-align: center;
+            margin: 40px auto;
+        }
+        
+        input {
+            margin-top: 10px;
+        }
+        
+        #btn {
+            width: 100px;
+            height: 30px;
+        }
+        
+        #notice {
+            /* 公告栏 */
+            text-align: center;
+            margin: 40px auto;
+        }
+        
+        #iMark {
+            /*遮罩  */
+            background-color: rgba(177, 177, 192, 0.548);
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: 1;
+            /* 设置优先级为1 */
+        }
+    </style>
+
+    <!-- 引入弹窗组件 -->
+    <script src="./02-dialog.js"></script>
+
+    <!-- 调用组件-->
+    <script>
+        window.onload = function() {
+
+            // 调用组件1 登录界面弹窗
+            var btn = document.getElementById("btn");
+
+            //点击按钮后，实现弹窗 并可在可视区内拖曳
+            btn.onclick = function() { //使用拖曳组件实现弹窗在可视区内拖曳
+
+                var dialog = new Dialog();
+                dialog.init({
+                    iNow: 1, //可取任何值 主要用于标记
+                    divId: 'login',
+                    contentId: 'form',
+                    title: '登录',
+                    mark: true, //设置遮罩
+                });
+
+                var content = document.getElementById(dialog.settings.contentId);
+
+                content.innerHTML = ' <form>用户名：<input type="text" name="username"><br>密&nbsp;&nbsp;&nbsp; 码：<input type="password" name="passwd"><br><input type="submit" name="" id="" value="登&nbsp;&nbsp;录">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="reset" value="重&nbsp;&nbsp;置"></form>'; //配置弹窗内容
+
+
+
+            };
+
+            //调用组件2 公告栏
+            var we = new Dialog();
+            we.init({
+                divId: 'ad',
+                contentId: 'notice',
+                title: '公告',
+                w: 200,
+                h: 300,
+                dir: 'right',
+
+            });
+
+            var content1 = document.getElementById("notice");
+            content1.innerHTML = '<img src="../01-事件处理/images/坦克.png" alt=""> 用户公告';
+
+
+        };
+    </script>
+
+
+</head>
+
+<body>
+    <input type="button" id="btn" value="登录">
+
+</html>

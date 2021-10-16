@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>07-鼠标方向键控制移动</title>
+    <style>
+        #div {
+            left: 300px;
+            top: 300px;
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+            border-radius: 50px 50px 0px 0px;
+            /* 设置绝对定位 */
+            position: absolute;
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var div = document.getElementById("div");
+            console.log(div);
+            document.onkeydown = function(ev) {
+                var ev = ev || event; //适配兼容问题
+                console.log(ev.keyCode);
+                switch (ev.keyCode) { //判断哪个按键被点击
+
+                    case 37: //  37  是键盘上向左键的码值
+                        div.style.left = div.offsetLeft - 10 + 'px';
+                        break;
+                    case 38: //  38  是键盘上向上键的码值
+                        div.style.top = div.offsetTop - 10 + 'px';
+                        break;
+                    case 39: //  39  是键盘上向右键的码值
+                        div.style.left = div.offsetLeft + 10 + 'px';
+                        break;
+                    case 40: //  40  是键盘上向下键的码值
+                        div.style.top = div.offsetTop + 10 + 'px';
+                        break;
+                }
+
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="div"></div>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+    /* 默认样式重置 */
+    
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    dl,
+    dd {
+        margin: 0;
+        font-family: '微软雅黑';
+    }
+    
+    body {
+        overflow-x: auto;
+        overflow-y: hidden;
+        background-color: #fff;
+    }
+    
+    table {
+        /* 边框折叠：折叠 */
+        border-collapse: collapse;
+        /* 边框间距：0； */
+        border-spacing: 0;
+    }
+    
+    td,
+    th {
+        padding: 0;
+    }
+    
+    ul,
+    ol {
+        margin: 0;
+        padding: 0;
+        /* 列表样式类型：无 */
+        list-style-type: none;
+    }
+    
+    main {
+        display: block;
+    }
+    
+    a {
+        /* 文字修饰:没有; */
+        text-decoration: none;
+    }
+    
+    mark {
+        background-color: none;
+    }
+    
+    img {
+        /* 垂直对齐：顶部 */
+        vertical-align: top;
+    }

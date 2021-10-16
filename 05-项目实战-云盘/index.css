@@ -1,0 +1,439 @@
+        #page {
+            /*设置页面缩放时，内容也不会位置错乱 */
+            min-width: 1024px;
+            height: 100vh;
+        }
+        
+        #header {
+            /* 高度固定  不根据父级伸缩 */
+            flex: none;
+            height: 70px;
+            padding: 0 28px;
+            border-bottom: 1px solid #d0d9de;
+        }
+        
+        #content {
+            /*flex布局 主轴方向为默认 */
+            display: flex;
+            flex: 1;
+            overflow: auto;
+            height: 100%;
+        }
+        
+        #tree-menu {
+            /* 侧边栏   超出宽度 超出时显示滚动条 */
+            flex: none;
+            width: 300px;
+            border-right: 2px solid #e1e8ed;
+            overflow: auto;
+        }
+        
+        #folder-content {
+            /* 设置flex布局 弹性方向：列 */
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+        }
+        
+        #breadmenu {
+            /* 路径导航区域 */
+            flex: none;
+            height: 48px;
+            border-bottom: 2px solid #e1e8ed;
+        }
+        
+        #folders {
+            /* 文件夹区域 */
+            flex: 1;
+            background-color: #f5f8fa;
+            overflow: auto;
+        }
+        /* 页面头部布局 */
+        
+        #logo {
+            float: left;
+            margin-top: 18px;
+        }
+        
+        .top-nav {
+            margin-top: 17px;
+            float: right;
+        }
+        
+        .top-nav a {
+            float: left;
+            font: 18px/36px '微软雅黑';
+            padding: 0 22px 0 24px;
+            border: 1px solid transparent;
+            color: #66757f;
+            border-radius: 5px;
+        }
+        
+        .top-nav a::before {
+            margin-right: 18px;
+        }
+        
+        .top-nav a:hover {
+            border-color: #55addc;
+            color: #55addc;
+        }
+        /* 侧边栏布局 */
+        
+        .tree-menu p {
+            font: 18px/36px '微软雅黑';
+            padding-left: 40px;
+            color: #66757f;
+        }
+        
+        .tree-menu .has-child::before {
+            /* 箭 头 */
+            content: "\e510";
+            float: left;
+            margin-left: -22px;
+            font-family: 'iconfont';
+            font-size: 18px;
+        }
+        
+        .tree-menu p:hover {
+            background-color: #f0f3f6;
+        }
+        
+        .tree-menu span {
+            position: relative;
+            display: block;
+            padding-left: 20px;
+        }
+        
+        .tree-menu span::before {
+            /* 文件夹 */
+            content: "\e649";
+            font-size: 18px;
+            font-family: 'iconfont';
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+        
+        .tree-menu li ul {
+            display: none;
+        }
+        
+        .tree-menu p .active {
+            background-color: #e1e8ed;
+        }
+        
+        .tree-menu .open>ul {
+            display: block;
+        }
+        
+        .tree-menu .open>.has-child:before {
+            /* 向下占行 */
+            content: '\ec0b';
+        }
+        
+        .tree-menu .open>p span:before {
+            /* 文件夹 */
+            content: '\ec17';
+            font-size: 18px;
+        }
+        /* 路径导航布局 */
+        
+        .checked-all {
+            float: left;
+            margin: 14px;
+            width: 18px;
+        }
+        
+        .checked input:checked+span {
+            border: none;
+        }
+        
+        .checked input:checked+span:before {
+            display: block;
+        }
+        
+        .bread-nav {
+            float: left;
+        }
+        
+        .bread-nav a,
+        .bread-nav span {
+            position: relative;
+            padding-left: 12px;
+            height: 48px;
+            float: left;
+            color: #2a3133;
+            font-size: 14px;
+            line-height: 48px;
+        }
+        
+        .bread-nav a::after {
+            content: "\e510";
+            font-family: 'iconfont';
+            display: inline-block;
+            padding-left: 12px;
+            font-size: 22px;
+            vertical-align: top;
+            color: #d0d9de;
+        }
+        
+        .bread-nav span {
+            margin-left: 6px;
+            padding: 0 10px;
+            color: #55addc;
+            border-bottom: 2px solid #55addc;
+        }
+        /* 文件夹区域布局 */
+        /* .folders-empty {
+            background: #f5f8fa url('./image/image1.png') no-repeat center !important;
+        } */
+        
+        .folder-item {
+            float: left;
+            margin: 40px 0 0 40px;
+            width: 178px;
+            height: 178px;
+            background-color: #ebeff0;
+            border-radius: 4px;
+            position: relative;
+            text-align: center;
+            border: 1px solid transparent;
+            cursor: pointer;
+        }
+        
+        .folder-item img {
+            margin: 34px auto 0;
+            display: block;
+        }
+        
+        .folder-name {
+            margin: 14px auto 0;
+            display: block;
+            width: 120px;
+            font: 18px /30px "微软雅黑";
+            color: #69737f;
+        }
+        
+        .editor {
+            box-sizing: border-box;
+            border-radius: 5px;
+            margin: 14px auto 0;
+            display: none;
+            width: 130px;
+            height: 30px;
+            border: 1px solid #55addc;
+            text-align: center;
+            color: #69737f;
+            background: #fff;
+        }
+        
+        .folder-item .checked {
+            position: absolute;
+            left: 5px;
+            top: 5px;
+            width: 16px;
+            height: 16px;
+            display: none;
+        }
+        
+        .folder-item:hover {
+            background-color: #fff;
+        }
+        
+        .folder-item:hover .checked {
+            display: block;
+        }
+        
+        .folder-item.active {
+            background-color: #fff;
+            border-color: #55addc;
+            box-shadow: 0 0 5px rgba(red, green, blue, alpha);
+        }
+        
+        .folder-item .active .checked {
+            display: block;
+        }
+        /* 弹窗 */
+        
+        .alert {
+            position: fixed;
+            left: 50%;
+            top: -100px;
+            /* 不透明度：0 */
+            opacity: 0;
+            height: 40px;
+            padding: 0 30px 0 52px;
+            font: 18px /40px '微软雅黑';
+            color: #fff;
+            transform: translateX(-50%);
+            border-radius: 20px;
+            transition: .5s opacity, 0s .5s top;
+        }
+        
+        .alert::before {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            font-size: 25px;
+            font-family: 'iconfont';
+        }
+        
+        .alert-success {
+            background-color: #86ce8b;
+        }
+        
+        .alert-success:before {
+            content: '\ed1c';
+        }
+        
+        .alert-warning {
+            background-color: #f3a960;
+        }
+        
+        .alert-warning::before {
+            content: '\e693';
+        }
+        
+        .alert-show {
+            transition: .2s opacity;
+            top: 15px;
+            opacity: 1;
+        }
+        /* 删除确认框 */
+        
+        .confirm {
+            position: fixed;
+            left: 50%;
+            top: -50%;
+            opacity: 0;
+            transform: translate(-50%, -50%);
+            width: 246px;
+            padding: 42px 35px 27px 35px;
+            border: 2px solid #55addc;
+            border-radius: 10px;
+            background-color: #fff;
+            transition: .5s opacity, 0s .5s top;
+        }
+        
+        .confirm-show {
+            transition: .1s opacity;
+            top: 50%;
+            opacity: 1;
+        }
+        
+        .clos {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            font-size: 16px;
+            line-height: 1;
+            color: #55addc;
+            transition: .6s;
+            cursor: pointer;
+        }
+        
+        .confirm-text {
+            position: relative;
+            padding-left: 35px;
+            font: 18px/36px "微软雅黑";
+        }
+        
+        .confirm-text::before {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 25px;
+            line-height: 1;
+            color: #a5aeb4;
+        }
+        
+        .confirm-btns {
+            padding-top: 20px;
+            display: flex;
+        }
+        
+        .confirm-btns a {
+            margin-left: 24px;
+            width: 78px;
+            font: 16px/36px "微软雅黑";
+            text-align: center;
+            border: 1px solid #55addc;
+            border-radius: 3px;
+            color: #55addc;
+        }
+        
+        .confirm-btns a :nth-child(1) {
+            color: #fff;
+            background: #55addc;
+        }
+        /* 移动到某地 弹窗  */
+        
+        .move-alert {
+            position: fixed;
+            left: 50%;
+            top: -50%;
+            transform: translate(-50%, -50%);
+            width: 360px;
+            padding: 5px 20px 40px;
+            border: 2px solid #55addc;
+            border-radius: 10px;
+            background-color: #fff;
+            transition: .5s opacity, 0s .5s top;
+        }
+        
+        .move-alert-title {
+            font: 18px/36px "楷书";
+            color: #000;
+        }
+        
+        .move-alert-menu {
+            overflow: auto;
+            width: 358px;
+            height: 260px;
+            padding: 10px 0;
+            margin: 15px 0 0 0;
+            border: 1px solid #e1e8ed;
+            border-radius: 10px;
+        }
+        
+        .move-alert .confirm-btns {
+            padding-left: 0;
+            justify-content: center;
+        }
+        
+        .move-alert.move-alert-show {
+            transition: .1s opacity;
+            top: 50%;
+            /*不透明度为 1  使div 显性  */
+            opacity: 1;
+        }
+        /* 右键菜单 */
+        
+        #contextmenu {
+            width: 88px;
+            display: none;
+            position: fixed;
+            padding: 8px 4px;
+            border: 1px solid #d0d9de;
+            border-radius: 5px;
+            background: #fff;
+            box-shadow: 0 0 3px #d0d9de;
+            font: 18px/36px "楷书";
+            color: #66757f;
+        }
+        
+        #contextmenu li {
+            border-bottom: 1px solid #d0d9de;
+        }
+        
+        #contextmenu li:hover {
+            color: #7ebee3;
+            border-color: #7ebee3;
+        }
+        
+        #contextmenu li::before {
+            float: left;
+            width: 26px;
+            text-align: center;
+        }

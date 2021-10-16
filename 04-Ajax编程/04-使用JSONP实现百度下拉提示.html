@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>04-使用JSONP实现百度下拉提示</title>
+    <style>
+        #q {
+            width: 300px;
+            height: 30px;
+            padding: 5px;
+            border: 1px solid;
+            font-size: 16px;
+        }
+        
+        #ul1 {
+            width: 310px;
+            margin: 0;
+            padding: 0;
+            border: 1px solid;
+            display: none;
+        }
+        
+        li a {
+            line-height: 30px;
+            padding: 5px;
+            text-decoration: none;
+            /* 文字装饰：无； */
+            color: black;
+            display: block;
+        }
+        
+        li a:hover {
+            background-color: #f90;
+            color: white;
+        }
+    </style>
+    <script>
+        //定义回调函数 函数名为 miaov
+        function miaov(data) {
+            var ul = document.getElementById("ul1");
+            var html = "";
+            if (data.s.length) {
+                ul.style.display = 'block';
+                for (var i = 0; i < data.s.length; i++) {
+                    //将返回值作为搜索关键字和超链接的原端点
+                    html += '<li> <a target="_blank" href="https://www.baidu.com/s?wd=' + data.s[i] + '">' + data.s[i] + '</a></li>';
+                };
+                ul.innerHTML = html;
+            } else {
+                ul.style.display = 'none';
+            }
+        };
+
+
+        window.onload = function() {
+            var q = document.getElementById('q');
+            var ul = document.getElementById('ul1');
+
+            //在事件中动态创建 <script> 标签
+            q.onkeyup = function() {
+                if (this.value != '') {
+                    var Script = document.createElement('script');
+
+                    //指定src中的url包含值为回调函数名 miaov 的参数
+                    Script.src = 'https://www.baidu.com/su?wd=' + this.value + '&cb=miaov';
+                    document.body.appendChild(Script);
+                } else {
+                    ul.style.display = 'none';
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <input type="text" id="q">
+    <ul id="ul1"></ul>
+
+</body>
+
+</html>

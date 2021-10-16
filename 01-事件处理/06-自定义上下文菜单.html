@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>06-自定义上下文菜单</title>
+    <style>
+        .div {
+            width: 120px;
+            height: 200px;
+            border: 1px solid;
+            border-radius: 5px;
+            /* 添加绝对定位 */
+            position: absolute;
+            display: none;
+            text-align: center;
+        }
+        
+        a {
+            /* 取消a标签下划线 */
+            text-decoration: none;
+        }
+        
+        ul {
+            padding: 5px 0;
+        }
+        
+        li {
+            /* 消除li的原有样式 */
+            list-style: none;
+            margin: 20px;
+        }
+        
+        a:link,
+        a:visited {
+            color: rgba(0, 0, 0, 0.753);
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            var div = document.getElementsByClassName("div")[0];
+
+            document.oncontextmenu = function(ev) { //鼠标右键被点击时
+                var ev = ev || event;
+                div.style.display = 'block'; //隐藏的盒子显性
+                //使得盒子获得的坐标值为鼠标所在位置
+                div.style.left = ev.clientX + 'px';
+                div.style.top = ev.clientY + 'px';
+                return false; //阻止浏览器默认行为
+            }
+
+            //单击其他地方，自定义窗口隐藏
+            document.onclick = function(ev) {
+
+                var ev = ev || event;
+                div.style.display = 'none';
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div>点击鼠标右键</div>
+    <div class="div">
+        <ul>
+            <li>
+                <a href="xxx ">刷 新</a>
+            </li>
+            <li>
+                <a href="# ">资源下载</a>
+            </li>
+            <li>
+                <a href="# ">联系我们</a>
+            </li>
+
+        </ul>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02-获取表单信息</title>
+    <style>
+        body {
+            width: 700px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>个人信息注册</h2>
+    <form action="" id="form" name="form1">
+        <table border="1" width="630" cellpadding="5" cellspacing="0">
+            <tr>
+                <td>用户</td>
+                <td><input type="text" name="username" id=""></td>
+            </tr>
+
+            <tr>
+                <td>密 码</td>
+                <td><input type="password" name="pwd1" id=""></td>
+            </tr>
+
+            <tr>
+                <td>确认密码</td>
+                <td><input type="password" name="pwd2" id=""></td>
+            </tr>
+
+            <tr>
+                <td>性 别</td>
+                <td>
+                    <input type="radio" name="gender" value="男">男
+                    <input type="radio" name="gender" value="女">女
+                </td>
+            </tr>
+
+            <tr>
+                <td>掌握的语言</td>
+                <td class="td">
+                    <input type="checkbox" name="lang" value="中文">中文
+                    <input type="checkbox" name="lang" value="英文">英文
+                    <input type="checkbox" name="lang" value="法语">法语
+                    <input type="checkbox" name="lang" value="德语">德语
+                </td>
+            </tr>
+
+            <tr>
+                <td>个人爱好</td>
+                <td class="td"><select name="hobby" size="4" multiple="miltiple" id="">
+                    <option value="旅游">旅 游 </option>
+                    <option value="运动">运 动 </option>
+                    <option value="上网">上 网 </option>
+                    <option value="冲浪">冲 浪 </option>
+                    <option value="音乐">音 乐 </option>
+                </select></td>
+            </tr>
+
+            <tr>
+                <td>最高学历</td>
+                <td class="td"><select name="degree" id="">
+                    <option value="-1">--请选择学历--</option>
+                    <option value="博士">博士</option>
+                    <option value="硕士">硕士</option>
+                    <option value="本科">本科</option>
+                    <option value="专科">专科</option>
+                    <option value="高中">高中</option>
+                </select></td>
+            </tr>
+
+            <tr>
+                <td>个人简介</td>
+                <td><textarea name="info" id="" cols="45" rows="6"></textarea></td>
+            </tr>
+
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="button" value="注册" id="regbtn">
+                    <input type="reset" value="重置">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+<script>
+    window.onload = function() {
+        //声明变量，获取属性
+        var sex, selDegree, infor;
+        var hobbies = new Array(); //存储兴趣
+        var langs = new Array(); //存储选择的语言
+        var fr = document.form1; //获取表单1
+        var btn = document.getElementById("regbtn");
+        var td = document.getElementsByClassName("td");
+
+        //页面加载完后，元素 username 直接获取焦点
+        fr.username.focus();
+
+        //绑定事件
+        btn.onclick = function() {
+            //判断是选了性别
+            if (fr.gender[1].checked == true) {
+                sex = "女";
+            } else if (fr.gender[0].checked == true) {
+                sex = "男";
+            }
+
+            //将选择的语言存储进langs数组中
+            for (var i = 0; i < td[0].children.length; i++) {
+                if (fr.lang[i].checked == true) {
+                    langs.push(fr.lang[i].value);
+                }
+            }
+
+            //将选择的爱好存储进hobbies数组中
+            for (var i = 0; i < fr.hobby.children.length; i++) {
+                if (fr.hobby.options[i].selected == true) {
+                    hobbies.push(fr.hobby.options[i].value);
+                }
+            }
+
+            //定义局部变量
+            var index = fr.degree.selectedIndex; //获取被选中项的索引
+
+            selDegree = fr.degree.options[index].value; //将学历存储到selDegree变量中
+            infor = fr.info.value;
+
+            //设置并打印
+            var msg = "您注册的个人信息如下：\n用户名：" + fr.username.value + "\n密码：" + fr.pwd1.value + '\n性别：' + sex + "\n所掌握的语言有：" + langs.join("、") + "\n爱好有：" + hobbies.join("、") + "\n最高学历是：" + selDegree + "\n个人情况：" + infor;
+
+            alert(msg);
+        }
+
+    }
+</script>
+
+</html>

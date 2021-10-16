@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03-校验表单数据有效性</title>
+    <style>
+
+    </style>
+    <script>
+        window.onload = function() {
+            //定义flag
+            var flag = true;
+            var btn = document.getElementById("btn");
+
+            //获取元素
+            var username = document.getElementById("username");
+            var passwd = document.getElementById("pwd");
+            var idc = document.getElementById("idc");
+            var email = document.getElementById("email");
+            var tel = document.getElementById("tel");
+            var mobil = document.getElementById("mobil");
+            var address = document.getElementById("address");
+            var zip = document.getElementById("zip");
+
+            //定义正则表达式
+            //用户名第一个要是字母，长度在 5-10 个字符之间
+            var pname = /^[a-zA-Z]\w{4,9}$/;
+            //密码长度为 6-15 个非空白字符
+            var ppwd = /\S{6,15}/;
+            //身份证号的长度为15 或 18位  18位可以全数字，也可以最后为x或X
+            var pidc = /^\d{15}$|^\d{17}[\d|x|X]$/;
+            // email包含 @ ，其左右包含任意多单词字符 后面包含 . 和2-3个单词字符串
+            var pemail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            //家庭电话格式为 xxxx/xxxx-xxxxxxxx/xxxxxxxxx
+            var ptel = /^\d{3,5}$|^\d{3,4}-\d{7,8}$/;
+            //手机为11位数字，且第二个数字只能为3，4，5，7或8
+            var pmobil = /^1[3|4|5|7|9]\d{9}$/;
+            // 邮编为1-9之间的6位数字
+            var pzip = /^[1-9]\d{5}$/;
+
+
+            //调用方法
+            // btn.addEventListener('click', fn1);
+            btn.addEventListener('click', fn2);
+
+
+            //设置方法
+            //设置判断(1)--使用test()检验表单有效性
+            //test() 只会返回true 或 false
+            function fn1() {
+
+                if (!pname.test(username.value)) {
+                    flag = false;
+                    alert("用户名第一个要是字母，长度在 5-10 个字符之间");
+                }
+                if (!ppwd.test(passwd.value)) {
+                    flag = false;
+                    alert("密码长度为 6-15 个非空白字符！");
+                }
+                if (!pidc.test(idc.value)) {
+                    flag = false;
+                    alert("身份证号的长度为15 或 18位，请输入正确的身份证号");
+                }
+                if (!pemail.test(email.value)) {
+                    flag = false;
+                    alert("email包含@以及至少一个包含 . 和2-3个单词字符串");
+                }
+                if (!ptel.test(tel.value)) {
+                    flag = false;
+                    alert("家庭电话格式为 xxxx/xxxx-xxxxxxxx/xxxxxxxxx");
+                }
+                if (!pmobil.test(mobil.value)) {
+                    flag = false;
+                    alert("手机为11位数字，且第二个数字只能为3，4，5，7或8");
+                }
+
+                if (!pzip.test(zip.value)) {
+                    flag = false;
+                    alert("邮编为1-9之间的6位数字");
+                }
+                console.log(zip.value);
+
+                //如果 flag =false 则取消默认事件 提交表格
+                if (flag) {
+                    return false;
+                }
+            }
+
+            //设置判断(2)--使用string()的match() search()检验表单有效性  
+            //match():没找到会返回 null || 可以全局匹配  
+            //search()：成功返回 匹配成功的字符串的起始位置 || 失败返回 -1 ||不可全局匹配 只会匹配第一次
+            function fn2() {
+
+                if (username.value.search(pname) == -1) {
+                    flag = false;
+                    alert("用户名第一个要是字母，长度在 5-10 个字符之间");
+                }
+                if (passwd.value.search(ppwd) == -1) {
+                    flag = false;
+                    alert("密码长度为 6-15 个非空白字符！");
+                }
+                if (idc.value.search(pidc) == -1) {
+                    flag = false;
+                    alert("身份证号的长度为15 或 18位，请输入正确的身份证号");
+                }
+                if (email.value.search(pemail) == -1) {
+                    flag = false;
+                    alert("email包含@以及至少一个包含 . 和2-3个单词字符串");
+                }
+                if (tel.value.search(ptel) == -1) {
+                    flag = false;
+                    alert("家庭电话格式为 xxxx/xxxx-xxxxxxxx/xxxxxxxxx");
+                }
+                if (mobil.value.match(pmobil) == null) {
+                    flag = false;
+                    alert("手机为11位数字，且第二个数字只能为3，4，5，7或8");
+                }
+
+                if (zip.value.match(pzip) == null) {
+                    flag = false;
+                    alert("邮编为1-9之间的6位数字");
+                }
+                console.log(zip.value);
+
+                //如果 flag =false 则取消默认事件 提交表格
+                if (flag) {
+                    return false;
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <form action="##">
+        <table border="1" width='400' cellpadding='5' cellspacing='0'>
+            <tr>
+                <td>用户名</td>
+                <td><input type="text" name="username" id="username" value='a123456'></td>
+            </tr>
+            <tr>
+                <td>密码</td>
+                <td><input type="password" name="passwd" id="pwd" value='a12345'></td>
+            </tr>
+            <tr>
+                <td>身份证号</td>
+                <td><input type="text" name="IDC" id="idc" value='35030125511245049X'></td>
+            </tr>
+            <tr>
+                <td>email</td>
+                <td><input type="text" name="email" id="email" value='2332554893qq.com'></td>
+            </tr>
+            <tr>
+                <td>家庭电话</td>
+                <td><input type="text" name="tel" id="tel" value='121311'></td>
+            </tr>
+            <tr>
+                <td>手机</td>
+                <td><input type="text" name="mobil" id="mobil" value='12230012251'></td>
+            </tr>
+            <tr>
+                <td>通信地址</td>
+                <td><input type="text" name="address" id="address" value='广东省广州市蓝厂区'></td>
+            </tr>
+            <tr>
+                <td>邮编</td>
+                <td><input type="text" name="zip" id="zip" value='511001'></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="确认提交" name="" id="btn">
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>

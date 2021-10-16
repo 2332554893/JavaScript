@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01-创建,插入,修改,删除节点</title>
+
+    <script>
+        window.onload = function() {
+            //获取元素
+            var box = document.getElementById("box");
+            var btn = document.getElementsByTagName("input");
+
+            btn[0].onclick = function() {
+                addNode();
+            }
+            btn[1].onclick = function() {
+                insertNode();
+            }
+            btn[2].onclick = function() {
+                updateNode();
+            }
+            btn[3].onclick = function() {
+                delNode();
+            }
+
+            //添加节点
+            function addNode() {
+                var p = document.createElement("p"); //创建要添加的节点
+                p.innerHTML = "段落三（添加节点）";
+                box.appendChild(p); //在 box 的子节点添加 p 元素
+            }
+
+            //插入节点
+            function insertNode() {
+                var h2 = document.createElement("h2"); //创建要添加的节点
+                h2.innerHTML = "二级标题（插入内容）";
+                var op = document.getElementsByTagName("p")[0];
+                //获取第一个 p 元素
+                box.insertBefore(h2, op); //在第一个 p 标签的前面插入 h2
+            }
+
+            //修改节点
+            function updateNode() {
+                var op = document.getElementsByTagName("p")[1];
+                //获取第二个 p 元素
+                var oldtxt = op.firstChild; //获取第二个 p 元素 的文本节点
+                //创建需要替换旧文本的新文本节点
+                var newtxt = document.createTextNode("新段落二（修改的内容）");
+                op.replaceChild(newtxt, oldtxt);
+            }
+
+            //删除节点
+            function delNode() {
+                var op = document.getElementsByTagName("p")[0];
+                //获取第一个 p 元素
+                box.removeChild(op); // 删除段落op
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="box">
+        <p>段落一</p>
+        <p>段落二</p>
+    </div>
+    <input type="button" value="添加节点">
+    <input type="button" value="插入节点">
+    <input type="button" value="修改节点">
+    <input type="button" value="删除节点">
+</body>
+
+</html>
