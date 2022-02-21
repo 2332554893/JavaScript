@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于组件的运用</title>
+</head>
+
+<body>
+    <div id="blog-post-demo">
+        <div :style="{ fontSize: postFontSize + 'em' }">
+            <blog-post v-for="post in posts" v-bind:key="post.id" v-bind:post="post" @add="postFontSize += 0.1" @size-="postFontSize -= 0.1"></blog-post>
+        </div>
+    </div>
+
+
+
+</body>
+<script src="./js/vue.js"></script>
+<script>
+    Vue.component('blog-post', {
+        props: ['post'],
+        template: `
+        <div class="blog-post">
+        <div >{{post.id}}</div>
+        <h3>{{ post.title }}</h3>
+        <button @click="$emit('add')">Enlarge text</button>
+        <button @click="$emit('size-')">Enlarge text</button>
+        <div v-html="post.content"></div>
+        </div>`, //<div v-html="post.content"></div> 使得下面可以直接自己插入html标签元素
+
+    })
+
+    var app = new Vue({
+        el: "#blog-post-demo",
+        data() {
+            return {
+                posts: [{
+                    id: 1,
+                    title: '因为 <div v-html="post.content"></div>的存在',
+                    content: "http:/www.baidu.com"
+                }, {
+                    id: 2,
+                    title: '使得content 可以为任意形式',
+                    content: "http:/www.baidu.com",
+
+                }, {
+                    id: 3,
+                    title: '尤其是设置为html的标签',
+                    content: '<div style="background:red"><h1 >111</h1><button>确定</button></div>'
+                }],
+                postFontSize: 1
+            }
+        },
+
+        methods: {
+
+        },
+
+    })
+</script>
+
+</html>
